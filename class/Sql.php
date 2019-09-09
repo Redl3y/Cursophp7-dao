@@ -1,18 +1,20 @@
 <?php     
 
-class sql extends PDO {
+class Sql extends PDO {
 
     private $conn;
 
     public function __construct(){
 
         $this->conn = new PDO("mysql:host=localhost;dbname=dbphp7", "redley", "pentagono");
+        $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $this->conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 
     }
     private function setParams($statment, $parameters = array()){
         foreach ($parameters as $key => $value){
 
-            $statment->bindParam($key, $value);
+            $this->setParam($statment, $key, $value);
         }
 
     }
